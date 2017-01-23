@@ -10,7 +10,7 @@ As a POC it lets you build a fat library for iOS from a single `.ml` source (I h
 2. `./install.sh`
 3. `./gobi hello.ml`
 
-The `gobi` script creates `libGobi.a` in `build` directory. The attached xcode project has an iOS target which links to the library and executes code contained in it.
+The `gobi` script creates `libGobi.a` in `build` directory. The attached Xcode project has an iOS target which links to the library and executes code contained in it.
 
 You can verify that it works by double clicking the project and clicking run.
 
