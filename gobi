@@ -1,0 +1,41 @@
+#!/bin/sh
+
+PLATFORMS=(iPhoneSimulator iPhoneOS)
+
+SOURCES=""
+PRODUCTS=""
+mkdir -p build/tmp
+
+for FILE in "$@"
+do
+	SOURCE=$(pwd)/build/tmp/$FILE
+	cp $FILE $(pwd)/build/tmp
+	SOURCES="$SOURCES $SOURCE"
+done
+
+iPhoneOS64=arm64
+iPhoneOS32=armv7
+iPhoneSimulator64=x86_64
+iPhoneSimulator32=i386
+
+for BITS in 32 64 
+do
+	for PLATFORM in ${PLATFORMS[@]}
+	do
+		OUTPUT=$PLATFORM-$BITS
+		SDK=/Applications/Xcode.app/Contents/Developer/Platforms/${PLATFORM}.platform/Developer/SDKs/${PLATFORM}.sdk/
+		TOOLCHAIN_DIR=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+		OCAML_COMPILER=$(pwd)/bin/ocaml-$PLATFORM-${BITS}/release
+		OCAML_ASMRUN_LIB=$OCAML_COMPILER/lib/ocaml/libasmrun
+		ARCH=$PLATFORM$BITS
+		ARCH=${!ARCH}
+		PRODUCT=$(pwd)/build/tmp/$OUTPUT
+		$OCAML_COMPILER/bin/ocamlopt $SOURCES -output-obj -o ${PRODUCT}.o
+		cp $OCAML_COMPILER/lib/ocaml/libasmrun.a ${PRODUCT}.a
+		ar -r ${PRODUCT}.a ${PRODUCT}.o
+		PRODUCTS="$PRODUCTS ${PRODUCT}.a" 
+	done
+done
+
+lipo -create $PRODUCTS -o build/libGobi.a || exit $?
+

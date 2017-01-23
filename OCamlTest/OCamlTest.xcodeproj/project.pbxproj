@@ -1,0 +1,453 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C929BE031E36708700A0CC2C /* libGobi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C929BE021E36708700A0CC2C /* libGobi.a */; };
+		C99F606A1E34FE8F0064B563 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F60691E34FE8F0064B563 /* main.m */; };
+		C99F606D1E34FE8F0064B563 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F606C1E34FE8F0064B563 /* AppDelegate.m */; };
+		C99F60701E34FE8F0064B563 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F606F1E34FE8F0064B563 /* ViewController.m */; };
+		C99F60731E34FE8F0064B563 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C99F60711E34FE8F0064B563 /* Main.storyboard */; };
+		C99F60751E34FE8F0064B563 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C99F60741E34FE8F0064B563 /* Assets.xcassets */; };
+		C99F60781E34FE8F0064B563 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C99F60761E34FE8F0064B563 /* LaunchScreen.storyboard */; };
+		C99F60831E34FE8F0064B563 /* OCamlTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F60821E34FE8F0064B563 /* OCamlTestTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C99F607F1E34FE8F0064B563 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C99F605D1E34FE8E0064B563 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C99F60641E34FE8E0064B563;
+			remoteInfo = OCamlTest;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C929BE021E36708700A0CC2C /* libGobi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGobi.a; path = ../../build/libGobi.a; sourceTree = "<group>"; };
+		C99F60651E34FE8F0064B563 /* OCamlTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCamlTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C99F60691E34FE8F0064B563 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C99F606B1E34FE8F0064B563 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C99F606C1E34FE8F0064B563 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C99F606E1E34FE8F0064B563 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		C99F606F1E34FE8F0064B563 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		C99F60721E34FE8F0064B563 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C99F60741E34FE8F0064B563 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C99F60771E34FE8F0064B563 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C99F60791E34FE8F0064B563 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C99F607E1E34FE8F0064B563 /* OCamlTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OCamlTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C99F60821E34FE8F0064B563 /* OCamlTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCamlTestTests.m; sourceTree = "<group>"; };
+		C99F60841E34FE8F0064B563 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C99F60621E34FE8E0064B563 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C929BE031E36708700A0CC2C /* libGobi.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C99F607B1E34FE8F0064B563 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C99F605C1E34FE8E0064B563 = {
+			isa = PBXGroup;
+			children = (
+				C99F60671E34FE8F0064B563 /* OCamlTest */,
+				C99F60811E34FE8F0064B563 /* OCamlTestTests */,
+				C99F60661E34FE8F0064B563 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C99F60661E34FE8F0064B563 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C99F60651E34FE8F0064B563 /* OCamlTest.app */,
+				C99F607E1E34FE8F0064B563 /* OCamlTestTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C99F60671E34FE8F0064B563 /* OCamlTest */ = {
+			isa = PBXGroup;
+			children = (
+				C99F606B1E34FE8F0064B563 /* AppDelegate.h */,
+				C99F606C1E34FE8F0064B563 /* AppDelegate.m */,
+				C99F606E1E34FE8F0064B563 /* ViewController.h */,
+				C99F606F1E34FE8F0064B563 /* ViewController.m */,
+				C99F60711E34FE8F0064B563 /* Main.storyboard */,
+				C99F60741E34FE8F0064B563 /* Assets.xcassets */,
+				C99F60761E34FE8F0064B563 /* LaunchScreen.storyboard */,
+				C99F60791E34FE8F0064B563 /* Info.plist */,
+				C929BE021E36708700A0CC2C /* libGobi.a */,
+				C99F60681E34FE8F0064B563 /* Supporting Files */,
+			);
+			path = OCamlTest;
+			sourceTree = "<group>";
+		};
+		C99F60681E34FE8F0064B563 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C99F60691E34FE8F0064B563 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C99F60811E34FE8F0064B563 /* OCamlTestTests */ = {
+			isa = PBXGroup;
+			children = (
+				C99F60821E34FE8F0064B563 /* OCamlTestTests.m */,
+				C99F60841E34FE8F0064B563 /* Info.plist */,
+			);
+			path = OCamlTestTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C99F60641E34FE8E0064B563 /* OCamlTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C99F60871E34FE8F0064B563 /* Build configuration list for PBXNativeTarget "OCamlTest" */;
+			buildPhases = (
+				C99F60611E34FE8E0064B563 /* Sources */,
+				C99F60621E34FE8E0064B563 /* Frameworks */,
+				C99F60631E34FE8E0064B563 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OCamlTest;
+			productName = OCamlTest;
+			productReference = C99F60651E34FE8F0064B563 /* OCamlTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C99F607D1E34FE8F0064B563 /* OCamlTestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C99F608A1E34FE8F0064B563 /* Build configuration list for PBXNativeTarget "OCamlTestTests" */;
+			buildPhases = (
+				C99F607A1E34FE8F0064B563 /* Sources */,
+				C99F607B1E34FE8F0064B563 /* Frameworks */,
+				C99F607C1E34FE8F0064B563 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C99F60801E34FE8F0064B563 /* PBXTargetDependency */,
+			);
+			name = OCamlTestTests;
+			productName = OCamlTestTests;
+			productReference = C99F607E1E34FE8F0064B563 /* OCamlTestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C99F605D1E34FE8E0064B563 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = wokalski;
+				TargetAttributes = {
+					C99F60641E34FE8E0064B563 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 25UJHK4C3S;
+						ProvisioningStyle = Automatic;
+					};
+					C99F607D1E34FE8F0064B563 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 25UJHK4C3S;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C99F60641E34FE8E0064B563;
+					};
+				};
+			};
+			buildConfigurationList = C99F60601E34FE8E0064B563 /* Build configuration list for PBXProject "OCamlTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C99F605C1E34FE8E0064B563;
+			productRefGroup = C99F60661E34FE8F0064B563 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C99F60641E34FE8E0064B563 /* OCamlTest */,
+				C99F607D1E34FE8F0064B563 /* OCamlTestTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C99F60631E34FE8E0064B563 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C99F60781E34FE8F0064B563 /* LaunchScreen.storyboard in Resources */,
+				C99F60751E34FE8F0064B563 /* Assets.xcassets in Resources */,
+				C99F60731E34FE8F0064B563 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C99F607C1E34FE8F0064B563 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C99F60611E34FE8E0064B563 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C99F60701E34FE8F0064B563 /* ViewController.m in Sources */,
+				C99F606D1E34FE8F0064B563 /* AppDelegate.m in Sources */,
+				C99F606A1E34FE8F0064B563 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C99F607A1E34FE8F0064B563 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C99F60831E34FE8F0064B563 /* OCamlTestTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C99F60801E34FE8F0064B563 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C99F60641E34FE8E0064B563 /* OCamlTest */;
+			targetProxy = C99F607F1E34FE8F0064B563 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C99F60711E34FE8F0064B563 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C99F60721E34FE8F0064B563 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C99F60761E34FE8F0064B563 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C99F60771E34FE8F0064B563 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C99F60851E34FE8F0064B563 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C99F60861E34FE8F0064B563 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C99F60881E34FE8F0064B563 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 25UJHK4C3S;
+				GCC_DYNAMIC_NO_PIC = NO;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../bin/ocaml-iPhoneOS-64/release/lib/ocaml/caml\"";
+				INFOPLIST_FILE = OCamlTest/Info.plist;
+				LD_NO_PIE = NO;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/OCamlTest",
+					"\"$(SRCROOT)/../build\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wokalski.OCamlTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C99F60891E34FE8F0064B563 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 25UJHK4C3S;
+				GCC_DYNAMIC_NO_PIC = NO;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../bin/ocaml-iPhoneOS-64/release/lib/ocaml/caml\"";
+				INFOPLIST_FILE = OCamlTest/Info.plist;
+				LD_NO_PIE = NO;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/OCamlTest",
+					"\"$(SRCROOT)/../build\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wokalski.OCamlTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		C99F608B1E34FE8F0064B563 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 25UJHK4C3S;
+				INFOPLIST_FILE = OCamlTestTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wokalski.OCamlTestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OCamlTest.app/OCamlTest";
+			};
+			name = Debug;
+		};
+		C99F608C1E34FE8F0064B563 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 25UJHK4C3S;
+				INFOPLIST_FILE = OCamlTestTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wokalski.OCamlTestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OCamlTest.app/OCamlTest";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C99F60601E34FE8E0064B563 /* Build configuration list for PBXProject "OCamlTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C99F60851E34FE8F0064B563 /* Debug */,
+				C99F60861E34FE8F0064B563 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C99F60871E34FE8F0064B563 /* Build configuration list for PBXNativeTarget "OCamlTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C99F60881E34FE8F0064B563 /* Debug */,
+				C99F60891E34FE8F0064B563 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C99F608A1E34FE8F0064B563 /* Build configuration list for PBXNativeTarget "OCamlTestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C99F608B1E34FE8F0064B563 /* Debug */,
+				C99F608C1E34FE8F0064B563 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C99F605D1E34FE8E0064B563 /* Project object */;
+}
