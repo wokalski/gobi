@@ -3,6 +3,9 @@
 `gobi` is a simple proof of concept OCaml build tool for iOS. The ultimate goal
 is a simple and self contained tool that can be installed locally to a project.
 
+The name comes from the Gobi Desert, which is the [only desert with wild
+camels](http://animals.nationalgeographic.com/animals/mammals/bactrian-camel/).
+
 *Literally* nothing in this project is carefully designed so feel free to
 create issues (see below).
 
