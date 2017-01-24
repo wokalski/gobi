@@ -4,14 +4,10 @@ PLATFORMS=(iPhoneSimulator iPhoneOS)
 
 SOURCES=""
 PRODUCTS=""
-mkdir -p build/tmp
 mkdir -p _build/tmp
 
 for FILE in "$@"
 do
-	SOURCE=$(pwd)/build/tmp/$FILE
-	cp $FILE $(pwd)/build/tmp
-	SOURCES="$SOURCES $SOURCE"
   if [ ${FILE: -3} == ".re" ] ; then
     IFS='.' read -ra BASENAME <<< "$FILE"    #Convert string to array
     # This will break if the file name has more than one dot
@@ -42,9 +38,9 @@ do
 		OCAML_ASMRUN_LIB=$OCAML_COMPILER/lib/ocaml/libasmrun
 		ARCH=$PLATFORM$BITS
 		ARCH=${!ARCH}
-		PRODUCT=$(pwd)/build/tmp/$OUTPUT
 		$OCAML_COMPILER/bin/ocamlopt $SOURCES -output-obj -o ${PRODUCT}.o
-		cp $OCAML_COMPILER/lib/ocaml/libasmrun.a ${PRODUCT}.a
+		PRODUCT=$(pwd)/_build/tmp/$OUTPUT
+    cp ${OCAML_ASMRUN_LIB}.a ${PRODUCT}.a
 		ar -r ${PRODUCT}.a ${PRODUCT}.o
 		PRODUCTS="$PRODUCTS ${PRODUCT}.a" 
 	done
