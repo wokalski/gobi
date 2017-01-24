@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C929BE031E36708700A0CC2C /* libGobi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C929BE021E36708700A0CC2C /* libGobi.a */; };
+		278727F21E3805CF004B754D /* libGobi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 278727F11E3805CF004B754D /* libGobi.a */; };
 		C99F606A1E34FE8F0064B563 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F60691E34FE8F0064B563 /* main.m */; };
 		C99F606D1E34FE8F0064B563 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F606C1E34FE8F0064B563 /* AppDelegate.m */; };
 		C99F60701E34FE8F0064B563 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F606F1E34FE8F0064B563 /* ViewController.m */; };
@@ -28,7 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C929BE021E36708700A0CC2C /* libGobi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGobi.a; path = ../../build/libGobi.a; sourceTree = "<group>"; };
+		278727F11E3805CF004B754D /* libGobi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGobi.a; path = ../_build/libGobi.a; sourceTree = "<group>"; };
 		C99F60651E34FE8F0064B563 /* OCamlTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCamlTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99F60691E34FE8F0064B563 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C99F606B1E34FE8F0064B563 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -49,7 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C929BE031E36708700A0CC2C /* libGobi.a in Frameworks */,
+				278727F21E3805CF004B754D /* libGobi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,12 +63,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		278727F01E3805CF004B754D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				278727F11E3805CF004B754D /* libGobi.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C99F605C1E34FE8E0064B563 = {
 			isa = PBXGroup;
 			children = (
 				C99F60671E34FE8F0064B563 /* OCamlTest */,
 				C99F60811E34FE8F0064B563 /* OCamlTestTests */,
 				C99F60661E34FE8F0064B563 /* Products */,
+				278727F01E3805CF004B754D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,7 +101,6 @@
 				C99F60741E34FE8F0064B563 /* Assets.xcassets */,
 				C99F60761E34FE8F0064B563 /* LaunchScreen.storyboard */,
 				C99F60791E34FE8F0064B563 /* Info.plist */,
-				C929BE021E36708700A0CC2C /* libGobi.a */,
 				C99F60681E34FE8F0064B563 /* Supporting Files */,
 			);
 			path = OCamlTest;
@@ -359,15 +367,18 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../bin/ocaml-iPhoneOS-64/release/lib/ocaml/caml\"";
 				INFOPLIST_FILE = OCamlTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_NO_PIE = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/OCamlTest",
-					"\"$(SRCROOT)/../build\"",
+					"\"$(SRCROOT)/../_build\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wokalski.OCamlTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SYMROOT = _build;
 			};
 			name = Debug;
 		};
@@ -379,15 +390,18 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../bin/ocaml-iPhoneOS-64/release/lib/ocaml/caml\"";
 				INFOPLIST_FILE = OCamlTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_NO_PIE = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/OCamlTest",
-					"\"$(SRCROOT)/../build\"",
+					"\"$(SRCROOT)/../_build\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wokalski.OCamlTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SYMROOT = _build;
 			};
 			name = Release;
 		};
