@@ -5,12 +5,24 @@ PLATFORMS=(iPhoneSimulator iPhoneOS)
 SOURCES=""
 PRODUCTS=""
 mkdir -p build/tmp
+mkdir -p _build/tmp
 
 for FILE in "$@"
 do
 	SOURCE=$(pwd)/build/tmp/$FILE
 	cp $FILE $(pwd)/build/tmp
 	SOURCES="$SOURCES $SOURCE"
+  if [ ${FILE: -3} == ".re" ] ; then
+    IFS='.' read -ra BASENAME <<< "$FILE"    #Convert string to array
+    # This will break if the file name has more than one dot
+    refmt --parse re --print ml ${BASENAME[0]}.re > $(pwd)/_build/tmp/${BASENAME[0]}.ml
+    SOURCE=$(pwd)/_build/tmp/${BASENAME[0]}.ml
+    SOURCES="$SOURCES $SOURCE"
+  else
+    SOURCE=$(pwd)/_build/tmp/$FILE
+    cp $FILE $(pwd)/_build/tmp
+    SOURCES="$SOURCES $SOURCE"
+  fi
 done
 
 iPhoneOS64=arm64
@@ -19,6 +31,7 @@ iPhoneSimulator64=x86_64
 iPhoneSimulator32=i386
 
 for BITS in 32 64 
+for BITS in 32 64
 do
 	for PLATFORM in ${PLATFORMS[@]}
 	do
