@@ -22,6 +22,9 @@ contained in it.
 
 You can verify that it works by double clicking the project and clicking run.
 
+#Using with [Reason](https://github.com/facebook/reason)
+Gobi works with [Reason](https://github.com/facebook/reason) by assuming `refmt` is available globally. The simplest way to avoid installing Reason globally, for this project, is to use npm (as explained on Reason's README) and then run `PATH=$PATH:path/to/reason/_build/ocamlfind/bin/ ./gobi hello.re`.
+
 #Issues
 
 This project is just Proof of Concept. All ideas are welcome so please create
