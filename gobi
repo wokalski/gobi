@@ -39,7 +39,6 @@ do
 		ARCH=${!ARCH}
 		$OCAML_COMPILER/bin/ocamlopt $SOURCES -output-obj -o ${PRODUCT}.o
 		PRODUCT=$(pwd)/_build/tmp/$OUTPUT
-    cp ${OCAML_ASMRUN_LIB}.a ${PRODUCT}.a
 		cp ${OCAML_ASMRUN_LIB}.a ${PRODUCT}.a
 		ar -r ${PRODUCT}.a ${PRODUCT}.o
 		PRODUCTS="$PRODUCTS ${PRODUCT}.a" 
