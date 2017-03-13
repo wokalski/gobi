@@ -1,3 +1,4 @@
+
 BINDIR=$(PREFIX)/release/bin
 LIBDIR=$(PREFIX)/release/lib/ocaml
 STUBLIBDIR=$(LIBDIR)/stublibs
@@ -46,9 +47,9 @@ SYSLIB=-l$(1)
 ### How to build a static library
 MKLIB=$(TOOLCHAIN_BIN)/ar rc $(1) $(2); $(TOOLCHAIN_BIN)/ranlib $(1)
 #ml let mklib out files opts = Printf.sprintf "ar rc %s %s %s; ranlib %s" out opts files out;;
-# ARCH is defined by install script
 MODEL=$(SUBARCH)
 SYSTEM=macosx
+
 NATIVECC=$(BYTECC)
 NATIVECCCOMPOPTS=-Wall
 NATIVECCPROFOPTS=-Wall
@@ -58,7 +59,7 @@ NATIVECCLIBS=-lm
 ASM=$(TOOLCHAIN_BIN)/as -arch ${SUBARCH} -miphoneos-version-min=$(MIN_IOS_VERSION)
 ASPP=$(BYTECC) -c
 ASPPPROFFLAGS=-DPROFILING
-PROFILING=noprof
+PROFILING=false
 DYNLINKOPTS= -ldl
 OTHERLIBRARIES=unix str num bigarray systhreads
 CC_PROFILE=-pg
@@ -90,3 +91,5 @@ WITH_OCAMLDOC=
 ASM_CFI_SUPPORTED=false
 WITH_FRAME_POINTERS=false
 TARGET=$(SUBARCH)-apple-darwin
+AFL_INSTRUMENT=false
+WITH_PROFINFO=false
