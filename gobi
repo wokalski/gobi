@@ -4,7 +4,7 @@ build_64_host() {
   cd bin/$VERSION/ocaml-host-64
   ./configure -prefix $(pwd)/release
   make world.opt install || exit $?
-  cd ../..
+  cd ../../..
 }
 
 build_32_host() {
@@ -16,15 +16,11 @@ build_32_host() {
     -aspp 'clang -arch i386 -c' \
     -lib -Wl,-no_pie
   make world.opt install || exit $?
-  cd ../..
+  cd ../../..
 }
 
 copy_target_config() {
   cp ./config/$1/* ./bin/$VERSION/ocaml-ios/config/ || exit $?
-}
-
-clean() {
-  echo "TODO"  
 }
 
 build_target_compilers() {
@@ -35,9 +31,9 @@ build_target_compilers() {
   SUBARCHS32=(i386 armv7)
   ARCHS64=(amd64 arm64)
   SUBARCHS64=(x86_64 arm64)
-  SCRIPT_DIR=`dirname $0`
-  BINDIR=$SCRIPT_DIR/bin
-  COMPILER_DIR=$BINDIR/$VERSION/ocaml-ios
+  SCRIPT_DIR=$(pwd)
+  BIN=$SCRIPT_DIR/bin/$VERSION
+  COMPILER_DIR=$BIN/ocaml-ios
 
   cd ${COMPILER_DIR}
   
@@ -47,9 +43,9 @@ build_target_compilers() {
     SUBARCHS=( "${!SUBARCHS}" )
     ARCHS=ARCHS${BITS}[@]
     ARCHS=( "${!ARCHS}" )
-    export HOST_BIN=$BINDIR/ocaml-host-${BITS}/release/bin
+    export HOST_BIN=$BIN/ocaml-host-${BITS}/release/bin
     echo ${HOST_BIN}
-    if [ $BITS = 32 ]
+    if [ $BITS = 64 ]
     then
       export HOST=x86_64-apple-darwin16.4.0
     else
@@ -59,12 +55,12 @@ build_target_compilers() {
     for i in 0 1 
     do
       export PLATFORM=${PLATFORMS[i]}
+      export PREFIX=$BIN/ocaml-${PLATFORM}-${BITS}/
       export ARCH=${ARCHS[i]}
       export SUBARCH=${SUBARCHS[i]}
-      export PREFIX=$(pwd)
+      export TARGET_WORD_SIZE=$BITS
+      mkdir -p "$PREFIX"
       make world opt install || exit $?
-      mkdir -p $BINDIR/ocaml-${PLATFORM}-${BITS}/
-      cp -R $COMPILER_DIR/release/* $BINDIR/ocaml-${PLATFORM}-${BITS}/ || exit $?
       make clean || exit $?
     done
   done
@@ -107,19 +103,25 @@ perform_install() {
     exit 1
   fi
   
-  export VERSION
+  export VERSION=$VERSION
 
   mkdir -p bin
+  BIN="$(pwd)/bin/$VERSION"
+  CURRENT="$(pwd)/bin/current"
+  if [ -d "$BIN" ]; then
+    rm -rf "$BIN"
+    echo "$VERSION installation already exists. removing."
+  fi
 
   git clone -b $VERSION+ios https://github.com/wokalski/ocaml.git bin/$VERSION/ocaml-ios || exit $?
   cp -R bin/$VERSION/ocaml-ios bin/$VERSION/ocaml-host-64
   cp -R bin/$VERSION/ocaml-ios bin/$VERSION/ocaml-host-32
-  
+ 
   build_64_host
   build_32_host
   copy_target_config $VERSION
   build_target_compilers
-  clean
+  ln -sf $BIN $CURRENT
 }
 
 print_install_help() {
@@ -161,7 +163,7 @@ perform_build() {
   for FILE in "$@"
   do
     if [ ${FILE: -3} == ".re" ] ; then
-      IFS='.' read -ra BASENAME <<< "$FILE"    #Convert string to array
+      IFS='.' read -ra BASENAME <<< "$FILE"  #Convert string to array
       # This will break if the file name has more than one dot
       refmt --parse re --print ml ${BASENAME[0]}.re > $(pwd)/_build/tmp/${BASENAME[0]}.ml
       SOURCE=$(pwd)/_build/tmp/${BASENAME[0]}.ml
@@ -182,19 +184,19 @@ perform_build() {
   do
   	  for PLATFORM in ${PLATFORMS[@]}
   	  do
-		OUTPUT=$PLATFORM-$BITS
-		SDK=/Applications/Xcode.app/Contents/Developer/Platforms/${PLATFORM}.platform/Developer/SDKs/${PLATFORM}.sdk/
-		TOOLCHAIN_DIR=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
-		OCAML_COMPILER=$(pwd)/bin/ocaml-$PLATFORM-${BITS}/release
-		OCAML_ASMRUN_LIB=$OCAML_COMPILER/lib/ocaml/libasmrun
-		ARCH=$PLATFORM$BITS
-		ARCH=${!ARCH}
-		$OCAML_COMPILER/bin/ocamlopt $SOURCES -output-obj -o ${PRODUCT}.o
-		PRODUCT=$(pwd)/_build/tmp/$OUTPUT
-		cp ${OCAML_ASMRUN_LIB}.a ${PRODUCT}.a
-		ar -r ${PRODUCT}.a ${PRODUCT}.o
-		PRODUCTS="$PRODUCTS ${PRODUCT}.a" 
-	  done
+	    	OUTPUT=$PLATFORM-$BITS
+	    	SDK=/Applications/Xcode.app/Contents/Developer/Platforms/${PLATFORM}.platform/Developer/SDKs/${PLATFORM}.sdk/
+	    	TOOLCHAIN_DIR=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+	    	OCAML_COMPILER=$(pwd)/bin/current/ocaml-$PLATFORM-${BITS}/
+	    	OCAML_ASMRUN_LIB=$OCAML_COMPILER/lib/ocaml/libasmrun
+	    	ARCH=$PLATFORM$BITS
+	    	ARCH=${!ARCH}
+	    	PRODUCT=$(pwd)/_build/tmp/$OUTPUT
+	    	$OCAML_COMPILER/bin/ocamlopt $SOURCES -output-obj -o ${PRODUCT}.o
+	    	cp ${OCAML_ASMRUN_LIB}.a ${PRODUCT}.a
+	    	ar -r ${PRODUCT}.a ${PRODUCT}.o
+	    	PRODUCTS="$PRODUCTS ${PRODUCT}.a" 
+	    done
   done
 
   lipo -create $PRODUCTS -o build/libGobi.a || exit $?
@@ -226,6 +228,9 @@ shift
 case $COMMAND in
   install)
     try_install "$@"
+    ;;
+  build)
+    perform_build "$@"
     ;;
 esac
 
