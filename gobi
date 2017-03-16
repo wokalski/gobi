@@ -1,49 +1,238 @@
 #!/bin/sh
 
-PLATFORMS=(iPhoneSimulator iPhoneOS)
+build_64_host() {
+  cd bin/$VERSION/ocaml-host-64
+  ./configure -prefix $(pwd)/release
+  make world.opt install || exit $?
+  cd ../../..
+}
 
-SOURCES=""
-PRODUCTS=""
-mkdir -p _build/tmp
+build_32_host() {
+  cd bin/$VERSION/ocaml-host-32
+  ./configure -prefix $(pwd)/release -no-shared-libs \
+    -host i386-apple-darwin$(uname -r) \
+    -cc 'clang -arch i386' \
+    -as 'clang -arch i386 -c' \
+    -aspp 'clang -arch i386 -c' \
+    -lib -Wl,-no_pie
+  make world.opt install || exit $?
+  cd ../../..
+}
 
-for FILE in "$@"
-do
-  if [ ${FILE: -3} == ".re" ] ; then
-    IFS='.' read -ra BASENAME <<< "$FILE"    #Convert string to array
-    # This will break if the file name has more than one dot
-    refmt --parse re --print ml ${BASENAME[0]}.re > $(pwd)/_build/tmp/${BASENAME[0]}.ml
-    SOURCE=$(pwd)/_build/tmp/${BASENAME[0]}.ml
-    SOURCES="$SOURCES $SOURCE"
-  else
-    SOURCE=$(pwd)/_build/tmp/$FILE
-    cp $FILE $(pwd)/_build/tmp
-    SOURCES="$SOURCES $SOURCE"
+copy_target_config() {
+  cp ./config/$1/* ./bin/$VERSION/ocaml-ios/config/ || exit $?
+}
+
+build_target_compilers() {
+  export TOOLCHAIN_BIN=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+  export MIN_IOS_VERSION=9.3
+  PLATFORMS=(iPhoneSimulator iPhoneOS)
+  ARCHS32=(i386 arm)
+  SUBARCHS32=(i386 armv7)
+  ARCHS64=(amd64 arm64)
+  SUBARCHS64=(x86_64 arm64)
+  SCRIPT_DIR=$(pwd)
+  BIN=$SCRIPT_DIR/bin/$VERSION
+  COMPILER_DIR=$BIN/ocaml-ios
+
+  cd ${COMPILER_DIR}
+  
+  for BITS in 64 32
+  do
+    SUBARCHS=SUBARCHS${BITS}[@]
+    SUBARCHS=( "${!SUBARCHS}" )
+    ARCHS=ARCHS${BITS}[@]
+    ARCHS=( "${!ARCHS}" )
+    export HOST_BIN=$BIN/ocaml-host-${BITS}/release/bin
+    echo ${HOST_BIN}
+    if [ $BITS = 64 ]
+    then
+      export HOST=x86_64-apple-darwin16.4.0
+    else
+      export HOST=i386-apple-darwin16.4.0
+    fi
+
+    for i in 0 1 
+    do
+      export PLATFORM=${PLATFORMS[i]}
+      export PREFIX=$BIN/ocaml-${PLATFORM}-${BITS}/
+      export ARCH=${ARCHS[i]}
+      export SUBARCH=${SUBARCHS[i]}
+      export TARGET_WORD_SIZE=$BITS
+      mkdir -p "$PREFIX"
+      make world opt install || exit $?
+      make clean || exit $?
+    done
+  done
+}
+
+version_error() {
+  echo --version requires non empty version. See gobi version for more information about available versions.
+}
+
+perform_install() {
+  VERSION=
+  FORMAT=BINARY
+
+  while :; do
+    case $1 in
+      --from-source)
+        FORMAT=SOURCE
+        shift
+        ;;
+      --version|-v)
+        if [ -n "$2" ] && [ "$2" != "--from-source" ]; then
+          VERSION=$2
+          shift 2
+        else
+          version_error
+          exit
+        fi
+        ;;
+      *)
+        if [ -n "$1" ]; then
+          echo Unknown option "$1" >&2
+          exit 1
+        fi
+        break
+    esac
+  done
+
+  if [ -z "$VERSION" ]; then
+    version_error
+    exit 1
   fi
-done
+  
+  export VERSION=$VERSION
 
-iPhoneOS64=arm64
-iPhoneOS32=armv7
-iPhoneSimulator64=x86_64
-iPhoneSimulator32=i386
+  mkdir -p bin
+  BIN="$(pwd)/bin/$VERSION"
+  CURRENT="$(pwd)/bin/current"
+  if [ -d "$BIN" ]; then
+    rm -rf "$BIN"
+    echo "$VERSION installation already exists. removing."
+  fi
 
-for BITS in 32 64
-do
-	for PLATFORM in ${PLATFORMS[@]}
-	do
-		OUTPUT=$PLATFORM-$BITS
-		SDK=/Applications/Xcode.app/Contents/Developer/Platforms/${PLATFORM}.platform/Developer/SDKs/${PLATFORM}.sdk/
-		TOOLCHAIN_DIR=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
-		OCAML_COMPILER=$(pwd)/bin/ocaml-$PLATFORM-${BITS}/release
-		OCAML_ASMRUN_LIB=$OCAML_COMPILER/lib/ocaml/libasmrun
-		ARCH=$PLATFORM$BITS
-		ARCH=${!ARCH}
-		$OCAML_COMPILER/bin/ocamlopt $SOURCES -output-obj -o ${PRODUCT}.o
-		PRODUCT=$(pwd)/_build/tmp/$OUTPUT
-		cp ${OCAML_ASMRUN_LIB}.a ${PRODUCT}.a
-		ar -r ${PRODUCT}.a ${PRODUCT}.o
-		PRODUCTS="$PRODUCTS ${PRODUCT}.a" 
-	done
-done
+  git clone -b $VERSION+ios https://github.com/wokalski/ocaml.git bin/$VERSION/ocaml-ios || exit $?
+  cp -R bin/$VERSION/ocaml-ios bin/$VERSION/ocaml-host-64
+  cp -R bin/$VERSION/ocaml-ios bin/$VERSION/ocaml-host-32
+ 
+  build_64_host
+  build_32_host
+  copy_target_config $VERSION
+  build_target_compilers
+  ln -sf $BIN $CURRENT
+}
 
-lipo -create $PRODUCTS -o build/libGobi.a || exit $?
+print_install_help() {
+  cat <<EOF
+  Usage: $0 install [--from-source] [--version <version>]
+
+  -h | --help		Display this information
+
+  --from-source		Install cross compilers from source.
+  By default cross compilers are installed
+  by downloading pre-built binaries.
+
+  -v | --version		Install a specific version. When this
+  argument is skipped, the newest available
+  version is installed. If HEAD is provided
+  it installs a version from trunk source.
+  By default the newest release is chosen.
+EOF
+}
+
+try_install() {
+  if [ $# -eq 0 ]; then
+    perform_install
+  elif [ $1 == "-h" ] || [ $1 == "--help" ]; then
+    print_install_help
+  else
+    perform_install "$@"
+  fi
+}
+
+perform_build() {
+
+  SOURCES=""
+  PRODUCTS=""
+  mkdir -p _build/tmp
+
+  PLATFORMS=(iPhoneSimulator iPhoneOS)
+
+  for FILE in "$@"
+  do
+    if [ ${FILE: -3} == ".re" ] ; then
+      IFS='.' read -ra BASENAME <<< "$FILE"  #Convert string to array
+      # This will break if the file name has more than one dot
+      refmt --parse re --print ml ${BASENAME[0]}.re > $(pwd)/_build/tmp/${BASENAME[0]}.ml
+      SOURCE=$(pwd)/_build/tmp/${BASENAME[0]}.ml
+      SOURCES="$SOURCES $SOURCE"
+      else
+      SOURCE=$(pwd)/_build/tmp/$FILE
+      cp $FILE $(pwd)/_build/tmp
+      SOURCES="$SOURCES $SOURCE"
+    fi
+  done
+
+  iPhoneOS64=arm64
+  iPhoneOS32=armv7
+  iPhoneSimulator64=x86_64
+  iPhoneSimulator32=i386
+
+  for BITS in 32 64
+  do
+  	  for PLATFORM in ${PLATFORMS[@]}
+  	  do
+	    	OUTPUT=$PLATFORM-$BITS
+	    	SDK=/Applications/Xcode.app/Contents/Developer/Platforms/${PLATFORM}.platform/Developer/SDKs/${PLATFORM}.sdk/
+	    	TOOLCHAIN_DIR=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+	    	OCAML_COMPILER=$(pwd)/bin/current/ocaml-$PLATFORM-${BITS}/
+	    	OCAML_ASMRUN_LIB=$OCAML_COMPILER/lib/ocaml/libasmrun
+	    	ARCH=$PLATFORM$BITS
+	    	ARCH=${!ARCH}
+	    	PRODUCT=$(pwd)/_build/tmp/$OUTPUT
+	    	$OCAML_COMPILER/bin/ocamlopt $SOURCES -output-obj -o ${PRODUCT}.o
+	    	cp ${OCAML_ASMRUN_LIB}.a ${PRODUCT}.a
+	    	ar -r ${PRODUCT}.a ${PRODUCT}.o
+	    	PRODUCTS="$PRODUCTS ${PRODUCT}.a" 
+	    done
+  done
+
+  lipo -create $PRODUCTS -o build/libGobi.a || exit $?
+}
+
+# Print usage when no arguments supplied
+if [ $# -eq 0 ] 
+then
+
+  cat <<EOF
+  Usage: $0 <cmd>
+
+  install		Installs iOS OCaml compiler.
+  By default the newest version is installed.
+  gobi install --help for more options.
+
+  build		Builds sources into an object file.
+  See gobi build --help for more options.
+
+  version		Print gobi version. See gobi version --help
+  for more information.
+EOF
+
+fi
+
+
+COMMAND=$1
+shift 
+case $COMMAND in
+  install)
+    try_install "$@"
+    ;;
+  build)
+    perform_build "$@"
+    ;;
+esac
+
+exit 0;
 
